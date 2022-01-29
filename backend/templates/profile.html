@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.reflowhq.com/v1/toolkit.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Highlight-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Testimonials.css' %}">
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="72">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-danger text-uppercase" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="#page-top">RGB</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler text-white bg-primary navbar-toggler-right text-uppercase rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:profile' %}">Profile</a></li>
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Shop</a></li>
+                  {% if request.user.is_authenticated %}
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:logout' %}">Log Out</a></li>
+                  {% endif %}
+              </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="text-center text-white bg-primary masthead">
+        <div class="container text-white-50">
+            <h1>{{ request.user.username }}</h1>
+            <hr>
+            <h2 class="font-weight-light mb-0">User Profile for {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+        </div>
+    </header>
+    <section class="text-success portfolio" id="portfolio">
+        <div class="row">
+            <div class="col">
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Your Total Score Rank:&nbsp;{{ request.user.score }}</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <section class="login-clean">
+                        <section class="highlight-blue">
+                            <div class="container">
+                                <div class="intro">
+                                    <h2 class="text-center">Your Blue Items</h2>
+                                </div>
+                                <div class="buttons">
+                                  <a href="#">Go to Blue Market</a>
+                                </div>
+                            </div>
+                            <div data-reflow-type="product-list" data-reflow-order="date_desc">
+                              <div class="reflow-product-list">
+                                  <div class="ref-products">
+                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                          <div class="ref-product-data">
+                                              <div class="ref-product-info">
+                                                  <h5 class="ref-name">Carissa Swift</h5>
+                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
+                                                  <a class="btn btn-primary bg-success buttons" href="#">BUY</a>
+                                              </div>
+                                              <p class="ref-price">$266.53</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </section>
+                    </section>
+                    <section class="login-clean">
+                        <section class="highlight-blue" style="background: var(--bs-red);">
+                            <div class="container">
+                                <div class="intro">
+                                    <h2 class="text-center">Your Red Items</h2>
+                                </div>
+                                <div class="buttons">
+                                  <a href="#">Go to Red Market</a>
+                                </div>
+                            </div>
+                            <div data-reflow-type="product-list" data-reflow-order="date_desc">
+                              <div class="reflow-product-list">
+                                  <div class="ref-products">
+                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                          <div class="ref-product-data">
+                                              <div class="ref-product-info">
+                                                  <h5 class="ref-name">Carissa Swift</h5>
+                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
+                                                  <a class="btn btn-primary bg-info buttons" href="#">BUY</a>
+                                              </div>
+                                              <p class="ref-price">$266.53</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </section>
+                    </section>
+                    <section class="login-clean">
+                        <section class="highlight-blue" style="background: var(--bs-success);">
+                            <div class="container">
+                                <div class="intro">
+                                    <h2 class="text-center">Your Green Items</h2>
+                                </div>
+                                <div class="buttons">
+                                  <a href="#">Go to Green Market</a>
+                                </div>
+                            </div>
+                            <div data-reflow-type="product-list" data-reflow-order="date_desc">
+                              <div class="reflow-product-list">
+                                  <div class="ref-products">
+                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                          <div class="ref-product-data">
+                                              <div class="ref-product-info">
+                                                  <h5 class="ref-name">Carissa Swift</h5>
+                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
+                                                  <a class="btn btn-primary bg-danger buttons" href="#">BUY</a>
+                                              </div>
+                                              <p class="ref-price">$266.53</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center text-white copyright py-4">
+        <div class="container"><small>Made With Love using Django and Unity</small></div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bs-init.js' %}"></script>
+    <script src="{% static 'js/freelancer.js' %}"></script>
+    <script src="https://cdn.reflowhq.com/v1/toolkit.min.js"></script>
+</body>
+
+</html>

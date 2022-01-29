@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Highlight-Blue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Testimonials.css' %}">
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="72">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-danger text-uppercase" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="#page-top">RGB</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler text-white bg-primary navbar-toggler-right text-uppercase rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:profile' %}">Profile</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Shop</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:logout' %}">Log Out</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="text-center text-white bg-primary masthead">
+        <div class="container text-white-50"><img class="img-fluid d-block mx-auto mb-5" src="{% static 'img/profile.png' %}">
+            <h1>RGB</h1>
+            <hr>
+            <h2 class="font-weight-light mb-0">A simple 2D game you can play with the world...</h2>
+        </div>
+    </header>
+    <section class="text-success portfolio" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                  {% if not request.user.is_authenticated %}
+                    <section class="login-clean">
+                      {% if message %}
+                      <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                      </div>
+                      {% endif %}
+                        <form method="post" action="{% url 'backend:register' %}">
+                          {% csrf_token %}
+                            <h2 class="visually-hidden">Registration Form</h2>
+                            <div class="mb-3"><input class="form-control" type="text" name="first_name" placeholder="First Name"></div>
+                            <div class="mb-3"><input class="form-control" type="text" name="last_name" placeholder="Last Name"></div>
+                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                            <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="username"></div>
+                            <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                            <div class="mb-3"><input class="form-control" type="password" name="password1" placeholder="Repeat Password"></div>
+                            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Register</button></div>
+                            <p class="forgot">Already Have an account? Login bellow...</p>
+                        </form>
+                        <br>
+                        <form method="post" action="{% url 'backend:login' %}">
+                          {% csrf_token %}
+                          {% csrf_token %}
+                            <h2 class="visually-hidden">Registration Form</h2>
+                            <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="username"></div>
+                            <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                        </form>
+                        {% else %}
+                        <section class="highlight-blue">
+                            <div class="container">
+                                <div class="intro">
+                                    <h2 class="text-center">You' r in!!!</h2>
+                                    <p class="text-center">Enter this code in the game:&nbsp;</p>
+                                    <p class="text-center">{{ request.user.identifier }}</p>
+                                </div>
+                                <div class="buttons"><a class="btn btn-primary bg-danger" role="button" href="#">Play NOW</a></div>
+                            </div>
+                        </section>
+                    </section>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <section class="text-white-50 highlight-blue">
+            <div class="container">
+                <div class="intro">
+                    <h2 class="text-center">Global Rank List</h2>
+                    <p class="text-center">Can you find yourself bellow?</p>
+                </div>
+                <div class="buttons"></div>
+            </div>
+            <div class="table-responsive text-black-50 bg-success">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Rank(Score)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for user in ranklist %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.score }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+    <div class="text-center text-white copyright py-4">
+        <div class="container"><small>Made With Love using Django and Unity</small></div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bs-init.js' %}"></script>
+    <script src="{% static 'js/freelancer.js' %}"></script>
+    <script src="https://cdn.reflowhq.com/v1/toolkit.min.js"></script>
+</body>
+
+</html>
