@@ -7,6 +7,9 @@ from .models import User, Item
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+from .serializers import UserSerializer
+from rest_framework import generics
+
 # Create your views here.
 def index(request):
     ctx = {
@@ -180,3 +183,11 @@ def sell(request, id, color):
     usr.save()
     item.save()
     return HttpResponseRedirect(reverse("backend:profile"))
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrive Update or Delete a User's data
+    """
+    lookup_field = "identifier"
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

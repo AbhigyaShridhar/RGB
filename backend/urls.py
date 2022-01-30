@@ -14,4 +14,7 @@ urlpatterns = [
     path('shops/', views.shop, name="shops"),
     path('shop/buy/<int:id>/<str:color>', views.buy, name="buy"),
     path('item/sell/<int:id>/<str:color>', views.sell, name="sell"),
+
+    #REST API
+    path('game/user/<str:identifier>', views.UserDetail.as_view()),
 ]
