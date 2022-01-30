@@ -9,11 +9,11 @@ class User(AbstractUser):
     blue = models.IntegerField(default=0)
     red = models.IntegerField(default=0)
     green = models.IntegerField(default=0)
-    items = models.ManyToManyField("Item")
+    items = models.ManyToManyField("Item", blank=True)
     email = models.EmailField(unique=True)
 
     class Meta:
-        ordering = ['score', 'red', 'blue', 'green']
+        ordering = ['-score', '-red', '-blue', '-green']
 
     def __str__(self):
         return self.username
@@ -30,6 +30,7 @@ class Item(models.Model):
     value = models.IntegerField(default=10)
     stock = models.IntegerField(default=5)
     description = models.TextField()
+    image = models.URLField(null=True, blank=False)
 
     class ColorChoices(models.TextChoices):
         RED = 'RED'

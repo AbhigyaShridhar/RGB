@@ -26,7 +26,7 @@
               <ul class="navbar-nav ms-auto">
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:profile' %}">Profile</a></li>
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
-                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Shop</a></li>
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:shops' %}">Shop</a></li>
                   {% if request.user.is_authenticated %}
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:logout' %}">Log Out</a></li>
                   {% endif %}
@@ -44,7 +44,7 @@
     <section class="text-success portfolio" id="portfolio">
         <div class="row">
             <div class="col">
-                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Your Total Score Rank:&nbsp;{{ request.user.score }}</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Your Total Score:&nbsp;{{ request.user.score }}</p>
             </div>
         </div>
         <div class="container">
@@ -57,22 +57,24 @@
                                     <h2 class="text-center">Your Blue Items</h2>
                                 </div>
                                 <div class="buttons">
-                                  <a href="#">Go to Blue Market</a>
+                                  <a href="{% url 'backend:market' 'blue' %}">Go to Blue Market</a>
                                 </div>
                             </div>
                             <div data-reflow-type="product-list" data-reflow-order="date_desc">
                               <div class="reflow-product-list">
                                   <div class="ref-products">
-                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                    {% for item in blues %}
+                                      <div class="ref-product"><img class="ref-image" src="{{ item.image }}" loading="lazy" />
                                           <div class="ref-product-data">
                                               <div class="ref-product-info">
-                                                  <h5 class="ref-name">Carissa Swift</h5>
-                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
-                                                  <a class="btn btn-primary bg-success buttons" href="#">BUY</a>
+                                                  <h5 class="ref-name">{{ item.name }}</h5>
+                                                  <p class="ref-excerpt">{{ item.description }}</p>
+                                                  <a class="btn btn-primary bg-success buttons" href="{% url 'backend:sell' item.id 'BLUE' %}">SELL</a>
                                               </div>
-                                              <p class="ref-price">$266.53</p>
+                                              <p class="ref-price">{{ item.value }}</p>
                                           </div>
                                       </div>
+                                      {% endfor %}
                                   </div>
                               </div>
                           </div>
@@ -85,22 +87,24 @@
                                     <h2 class="text-center">Your Red Items</h2>
                                 </div>
                                 <div class="buttons">
-                                  <a href="#">Go to Red Market</a>
+                                  <a href="{% url 'backend:market' 'red' %}">Go to Red Market</a>
                                 </div>
                             </div>
                             <div data-reflow-type="product-list" data-reflow-order="date_desc">
                               <div class="reflow-product-list">
                                   <div class="ref-products">
-                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                    {% for item in reds %}
+                                      <div class="ref-product"><img class="ref-image" src="{{ item.image }}" loading="lazy" />
                                           <div class="ref-product-data">
                                               <div class="ref-product-info">
-                                                  <h5 class="ref-name">Carissa Swift</h5>
-                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
-                                                  <a class="btn btn-primary bg-info buttons" href="#">BUY</a>
+                                                  <h5 class="ref-name">{{ item.name }}</h5>
+                                                  <p class="ref-excerpt">{{ item.description }}</p>
+                                                  <a class="btn btn-primary bg-info buttons" href="{% url 'backend:sell' item.id 'RED' %}">SELL</a>
                                               </div>
-                                              <p class="ref-price">$266.53</p>
+                                              <p class="ref-price">{{ item.value }}</p>
                                           </div>
                                       </div>
+                                      {% endfor %}
                                   </div>
                               </div>
                           </div>
@@ -113,22 +117,24 @@
                                     <h2 class="text-center">Your Green Items</h2>
                                 </div>
                                 <div class="buttons">
-                                  <a href="#">Go to Green Market</a>
+                                  <a href="{% url 'backend:market' 'green' %}">Go to Green Market</a>
                                 </div>
                             </div>
                             <div data-reflow-type="product-list" data-reflow-order="date_desc">
                               <div class="reflow-product-list">
                                   <div class="ref-products">
-                                      <div class="ref-product"><img class="ref-image" src="https://cdn.bootstrapstudio.io/products/product-30_md.jpg" loading="lazy" />
+                                    {% for item in greens %}
+                                      <div class="ref-product"><img class="ref-image" src="{{ item.image }}" loading="lazy" />
                                           <div class="ref-product-data">
                                               <div class="ref-product-info">
-                                                  <h5 class="ref-name">Carissa Swift</h5>
-                                                  <p class="ref-excerpt">Adipisci temporibus accusantium ipsa nihil.</p>
-                                                  <a class="btn btn-primary bg-danger buttons" href="#">BUY</a>
+                                                  <h5 class="ref-name">{{ item.name }}</h5>
+                                                  <p class="ref-excerpt">{{ item.description }}</p>
+                                                  <a class="btn btn-primary bg-danger buttons" href="{% url 'backend:sell' item.id 'GREEN' %}">SELL</a>
                                               </div>
-                                              <p class="ref-price">$266.53</p>
+                                              <p class="ref-price">{{ item.value }}</p>
                                           </div>
                                       </div>
+                                      {% endfor %}
                                   </div>
                               </div>
                           </div>

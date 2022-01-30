@@ -10,4 +10,8 @@ urlpatterns = [
     path('users/login', views.LoginView.as_view(), name="login"),
     path('users/logout', views.logout_view, name="logout"),
     path('user/profile/', views.profile, name="profile"),
+    path('market/<str:code>', views.market, name="market"),
+    path('shops/', views.shop, name="shops"),
+    path('shop/buy/<int:id>/<str:color>', views.buy, name="buy"),
+    path('item/sell/<int:id>/<str:color>', views.sell, name="sell"),
 ]

@@ -26,7 +26,7 @@
               <ul class="navbar-nav ms-auto">
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:profile' %}">Profile</a></li>
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
-                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Shop</a></li>
+                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:shops' %}">Shop</a></li>
                   {% if request.user.is_authenticated %}
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'backend:logout' %}">Log Out</a></li>
                   {% endif %}
@@ -44,7 +44,12 @@
         <section class="testimonials-clean">
             <div class="container">
                 <div class="intro">
-                    <h2 class="text-center">Your Balance:</h2>
+                    <h2 class="text-center">Your Balance: {{ request.user.red }}</h2>
+                    {% if message %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ message }}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
@@ -62,37 +67,39 @@
                                 <div class="ref-total-col"></div>
                             </div>
                             <div class="ref-cart-table">
+                              {% for item in items %}
                                 <div class="ref-product" data-id="1053938381" data-quantity="2">
                                     <div class="ref-product-col">
-                                        <div class="ref-product-wrapper"><img class="ref-product-photo" src="https://cdn.bootstrapstudio.io/products/product-1_sm.jpg" alt="Shania Bradtke" />
+                                        <div class="ref-product-wrapper"><img class="ref-product-photo" src="{{ item.image }}" alt="Shania Bradtke" />
                                             <div class="ref-product-data">
                                                 <div class="ref-product-info">
-                                                    <div class="ref-product-name">Shania Bradtke</div>
-                                                    <div class="ref-product-category">Maxime Category</div>
+                                                    <div class="ref-product-name">{{ item.name }}</div>
+                                                    <div class="ref-product-category">{{ item.description }}</div>
                                                 </div>
-                                                <div class="ref-product-price">5</div>
+                                                <div class="ref-product-price">{{ item.stock }}</div>
                                             </div>
                                         </div>
                                         <div class="ref-product-controls">
                                             <div class="ref-product-total">
-                                                <div class="ref-product-total-sum">50</div>
+                                                <div class="ref-product-total-sum">{{ item.value }}</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="ref-price-col">
-                                        <div class="ref-product-price">5</div>
+                                        <div class="ref-product-price">{{ item.stock }}</div>
                                     </div>
                                     <div class="ref-quantity-col">
                                         <div class="ref-product-quantity">
-                                          <div class="ref-product-total-sum">50</div>
+                                          <div class="ref-product-total-sum">{{ item.value }}</div>
                                         </div>
                                     </div>
                                     <div class="ref-total-col">
                                         <div class="ref-product-total">
-                                            <a class="btn btn-primary bg-success buttons" href="#">BUY</a>
+                                            <a class="btn btn-primary bg-success buttons" href="{% url 'backend:buy' item.id 'RED' %}">BUY</a>
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
